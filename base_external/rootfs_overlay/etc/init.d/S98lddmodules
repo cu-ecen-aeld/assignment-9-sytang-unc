@@ -1,0 +1,28 @@
+#!/bin/sh
+
+KVERSION=
+
+case "$1" in
+    start)
+        cd /lib/modules/$(uname -r)/extra
+        echo "Loading scull driver"
+        /etc/init.d/lddmodules/scull_load
+        echo "Loading faulty driver"
+        /etc/init.d/lddmodules/module_load faulty
+        echo "Loading hello module"
+        modprobe hello
+        ;;
+    stop)
+        echo "Unloading scull driver"
+        /etc/init.d/lddmodules/scull_unload
+        echo "Unloading faulty driver"
+        /etc/init.d/lddmodules/module_unload faulty
+        echo "Unloading hello module"
+        rmmod hello
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+    exit 1
+esac
+
+exit 0
