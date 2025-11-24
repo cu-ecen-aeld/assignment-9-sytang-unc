@@ -2,6 +2,7 @@
 
 case "$1" in
     start)
+        echo "Loading aesdchar driver"
         if grep -q '^staff:' /etc/group; then
             group="staff"
         else
@@ -24,6 +25,7 @@ case "$1" in
         fi
         ;;
     stop)
+        echo "Removing aesdchar driver"
         # invoke rmmod with all arguments we got
         rmmod aesdchar
 
